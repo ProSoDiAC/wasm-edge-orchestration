@@ -25,6 +25,7 @@ harness and are not the source of any published number.
     campaign/figures/       the figures derived from raw/
     firmware/               linker output for the two firmware builds compared
     security/               output of the authentication checks
+    energy/                 paired idle/active cycles and the workload-size sweep
     enrollment-timings.txt  device-side enrollment timings from the UART logs
 
 ## Where each published number comes from
@@ -43,6 +44,7 @@ harness and are not the source of any published number.
 | Cost of authentication in flash and RAM | difference against `firmware/footprint-baseline.txt` | Zephyr linker report |
 | Control-plane pod CPU and memory | `pod-resources.txt` | `kubectl top`, cgroup v2 reads |
 | Per-phase, per-pod CPU time | `cpu-time-per-phase.json` | `scripts/cpu_time_per_phase.py` |
+| Paired idle/active power and the workload-size sweep | `energy/` | `scripts/energy_campaign.py` |
 | Enrollment and signature timings on the device | `enrollment-timings.txt` | `scripts/measure_enrollment_timings.py` |
 | Refusal of an unproven device (fault-injection row) | `security/proof-of-possession-probe.txt` | `scripts/probe_proof_of_possession.py` |
 | Refusal of an untrusted or absent client certificate | `security/tls-negative-tests.txt` | `openssl s_client`, commands in that file |
