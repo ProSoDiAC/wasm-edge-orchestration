@@ -1,0 +1,14 @@
+{
+  "test-device": {
+    "id": "test-device",
+    "name": "Test Device",
+    "architecture": "ARM_CORTEX_M",
+    "device_type": "MCU",
+    "mcu_type": "mps2An385",
+    "status": "Stopped",
+    "process_id": null,
+    "endpoint": "127.0.0.1:30000",
+    "gateway_endpoint": null,
+    "wasm_runtime": null
+  }
+}

@@ -1,0 +1,21 @@
+/target/
+**/*.rs.bk
+
+# LaTeX intermediates
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.blg
+*.abs
+*.synctex.gz
+
+certs/
+*.pem
+*.key
+*.crt
+config/devices/
+
+node_modules/
+__pycache__/

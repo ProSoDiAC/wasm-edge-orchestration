@@ -1,0 +1,5018 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/restartedAt: "2026-08-20T15:06:15Z"
+    creationTimestamp: "2026-08-21T08:28:39Z"
+    generateName: gateway-1-deployment-74589d64db-
+    generation: 1
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+      pod-template-hash: 74589d64db
+    name: gateway-1-deployment-74589d64db-lct25
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: gateway-1-deployment-74589d64db
+      uid: de3f492f-312d-4caf-a144-38b5683edd10
+    resourceVersion: "72494664"
+    uid: 13201824-6cf5-4746-a9f2-27618517d730
+  spec:
+    containers:
+    - command:
+      - /usr/local/bin/wasmbed-gateway
+      - --bind-addr
+      - 0.0.0.0:8443
+      - --http-addr
+      - 0.0.0.0:8080
+      - --private-key
+      - /certs/server-key.pem
+      - --certificate
+      - /certs/server-cert.pem
+      - --client-ca
+      - /certs/ca-cert.pem
+      - --namespace
+      - wasmbed
+      - --pod-namespace
+      - wasmbed
+      - --pod-name
+      - gateway-1
+      env:
+      - name: GATEWAY_NAME
+        value: gateway-1
+      - name: GATEWAY_ENDPOINT
+        value: wasmbed-gateway.wasmbed.svc.cluster.local:8080
+      image: localhost:5000/wasmbed/gateway:v1.0
+      imagePullPolicy: Never
+      name: gateway
+      ports:
+      - containerPort: 8080
+        name: http
+        protocol: TCP
+      - containerPort: 8443
+        name: https
+        protocol: TCP
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /certs
+        name: certificates
+        readOnly: true
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-chmtn
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ubuntu
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: wasmbed-gateway
+    serviceAccountName: wasmbed-gateway
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: certificates
+      secret:
+        defaultMode: 420
+        secretName: gateway-certificates
+    - name: kube-api-access-chmtn
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:28:40Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:28:39Z"
+      observedGeneration: 1
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:28:40Z"
+      observedGeneration: 1
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:28:40Z"
+      observedGeneration: 1
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:28:39Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://c91549ecefafc16c39a0d3809c744200b0e33a8d51b482bab179a71c5ffe71b9
+      image: localhost:5000/wasmbed/gateway:v1.0
+      imageID: sha256:59a09d27acbe153039e5c897c024eacfb802cc8caedb673413a607150eb17b2a
+      lastState: {}
+      name: gateway
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-08-21T08:28:40Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          uid: 0
+      volumeMounts:
+      - mountPath: /certs
+        name: certificates
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-chmtn
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.100.183
+    hostIPs:
+    - ip: 192.168.100.183
+    observedGeneration: 1
+    phase: Running
+    podIP: 10.42.0.118
+    podIPs:
+    - ip: 10.42.0.118
+    qosClass: BestEffort
+    startTime: "2026-08-21T08:28:39Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/restartedAt: "2026-08-20T16:25:58Z"
+    creationTimestamp: "2026-08-21T08:28:39Z"
+    generateName: wasmbed-api-server-fcff6c7b5-
+    generation: 1
+    labels:
+      app: wasmbed-api-server
+      pod-template-hash: fcff6c7b5
+    name: wasmbed-api-server-fcff6c7b5-f7ds9
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: wasmbed-api-server-fcff6c7b5
+      uid: 8b325035-412a-454f-b949-47efb1622f11
+    resourceVersion: "72494665"
+    uid: a6c537b5-e3bd-47d1-b4ba-5c0ef692ac90
+  spec:
+    containers:
+    - env:
+      - name: RUST_LOG
+        value: info
+      - name: WASMBED_API_SERVER_PORT
+        value: "3001"
+      - name: WASMBED_API_SERVER_GATEWAY_ENDPOINT
+        value: http://gateway-1-service.wasmbed.svc.cluster.local:8080
+      - name: RENODE_GATEWAY_HOST
+        value: 192.168.1.1
+      - name: RENODE_GATEWAY_PORT
+        value: "30443"
+      - name: WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT
+        value: http://172.18.0.1:30460
+      - name: RENODE_USE_DOCKER
+        value: "true"
+      - name: ZEPHYR_WORKSPACE
+        value: /home/ubuntu/retrospect/zephyr-workspace
+      - name: WASMBED_DEVICE_IDENTITY_DIR
+        value: /home/ubuntu/retrospect/zephyr-workspace/device-identities
+      image: localhost:5000/wasmbed/api-server:v1.0
+      imagePullPolicy: IfNotPresent
+      name: api-server
+      ports:
+      - containerPort: 3001
+        name: http
+        protocol: TCP
+      resources:
+        limits:
+          cpu: 500m
+          memory: 512Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/docker.sock
+        name: docker-sock
+      - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+        name: zephyr-workspace
+        readOnly: true
+      - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+        name: renode-scripts
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-rmgbd
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ubuntu
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 988
+      supplementalGroups:
+      - 988
+    serviceAccount: wasmbed-api-server
+    serviceAccountName: wasmbed-api-server
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - hostPath:
+        path: /var/run/docker.sock
+        type: Socket
+      name: docker-sock
+    - hostPath:
+        path: /home/ubuntu/retrospect/zephyr-workspace
+        type: Directory
+      name: zephyr-workspace
+    - hostPath:
+        path: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+        type: DirectoryOrCreate
+      name: renode-scripts
+    - name: kube-api-access-rmgbd
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:28:40Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:28:39Z"
+      observedGeneration: 1
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:28:40Z"
+      observedGeneration: 1
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:28:40Z"
+      observedGeneration: 1
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:28:39Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - allocatedResources:
+        cpu: 100m
+        memory: 128Mi
+      containerID: containerd://c6ea76b22be066939acbe9439673df761af4a16dba4b724d97e9283863829202
+      image: localhost:5000/wasmbed/api-server:mtls3
+      imageID: sha256:871a651faaf29b1d64d53d8cd314e143cb830fa0cb70f6fe5f75b4ea43bb05da
+      lastState: {}
+      name: api-server
+      ready: true
+      resources:
+        limits:
+          cpu: 500m
+          memory: 512Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-08-21T08:28:40Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          - 988
+          uid: 0
+      volumeMounts:
+      - mountPath: /var/run/docker.sock
+        name: docker-sock
+      - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+        name: zephyr-workspace
+        readOnly: true
+        recursiveReadOnly: Disabled
+      - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+        name: renode-scripts
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-rmgbd
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.100.183
+    hostIPs:
+    - ip: 192.168.100.183
+    observedGeneration: 1
+    phase: Running
+    podIP: 10.42.0.119
+    podIPs:
+    - ip: 10.42.0.119
+    qosClass: Burstable
+    startTime: "2026-08-21T08:28:39Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/restartedAt: "2026-08-19T13:43:56Z"
+    creationTimestamp: "2026-08-21T08:46:21Z"
+    generateName: wasmbed-application-controller-c95d5d4c8-
+    generation: 1
+    labels:
+      app: wasmbed-application-controller
+      pod-template-hash: c95d5d4c8
+    name: wasmbed-application-controller-c95d5d4c8-dd9fp
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: wasmbed-application-controller-c95d5d4c8
+      uid: f348cb83-efaf-45ae-9deb-e7adc6bbfbc4
+    resourceVersion: "72524828"
+    uid: 3340e6f8-f309-452f-a8e1-23297d4f3ff4
+  spec:
+    containers:
+    - env:
+      - name: RUST_LOG
+        value: info
+      - name: GATEWAY_ENDPOINT
+        value: http://wasmbed-gateway.wasmbed.svc.cluster.local:8080
+      image: localhost:5000/wasmbed/application-controller:fixstatus1
+      imagePullPolicy: IfNotPresent
+      name: application-controller
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-slng9
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: ubuntu
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: wasmbed-application-controller
+    serviceAccountName: wasmbed-application-controller
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-slng9
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:46:21Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:46:21Z"
+      observedGeneration: 1
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:46:21Z"
+      observedGeneration: 1
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:46:21Z"
+      observedGeneration: 1
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-08-21T08:46:21Z"
+      observedGeneration: 1
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://734334ad15acf33ad1b9b482a59e3646b0383b2a3da14c185b5171304d740571
+      image: localhost:5000/wasmbed/application-controller:fixstatus1
+      imageID: sha256:780d03db3c1b7200080009524d3564b06a011017dbae1e0cc5b4d5e5061d907f
+      lastState: {}
+      name: application-controller
+      ready: true
+      resources: {}
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-08-21T08:46:21Z"
+      user:
+        linux:
+          gid: 0
+          supplementalGroups:
+          - 0
+          uid: 0
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-slng9
+        readOnly: true
+        recursiveReadOnly: Disabled
+    hostIP: 192.168.100.183
+    hostIPs:
+    - ip: 192.168.100.183
+    observedGeneration: 1
+    phase: Running
+    podIP: 10.42.0.120
+    podIPs:
+    - ip: 10.42.0.120
+    qosClass: BestEffort
+    startTime: "2026-08-21T08:46:21Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2026-05-15T16:27:54Z"
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+    name: gateway-1-service
+    namespace: wasmbed
+    resourceVersion: "1085"
+    uid: 64ee9a09-1f9c-4c23-82c5-e461608e124c
+  spec:
+    clusterIP: 10.43.18.251
+    clusterIPs:
+    - 10.43.18.251
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    - name: https
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+    selector:
+      app: wasmbed-gateway
+      gateway: gateway-1
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"wasmbed-api-server","namespace":"wasmbed"},"spec":{"ports":[{"name":"http","port":3001,"targetPort":3001}],"selector":{"app":"wasmbed-api-server"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-05-15T16:27:33Z"
+    name: wasmbed-api-server
+    namespace: wasmbed
+    resourceVersion: "945"
+    uid: 1c1121bf-540f-46a8-b166-079904960552
+  spec:
+    clusterIP: 10.43.207.172
+    clusterIPs:
+    - 10.43.207.172
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      port: 3001
+      protocol: TCP
+      targetPort: 3001
+    selector:
+      app: wasmbed-api-server
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"wasmbed-dashboard","namespace":"wasmbed"},"spec":{"ports":[{"name":"http","port":3000,"targetPort":3000}],"selector":{"app":"wasmbed-dashboard"},"type":"LoadBalancer"}}
+    creationTimestamp: "2026-05-15T16:27:33Z"
+    finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+    name: wasmbed-dashboard
+    namespace: wasmbed
+    resourceVersion: "63898003"
+    uid: 5ebd1775-c4f2-4996-8f50-f54b86bbdde4
+  spec:
+    allocateLoadBalancerNodePorts: true
+    clusterIP: 10.43.212.97
+    clusterIPs:
+    - 10.43.212.97
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      nodePort: 31090
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app: wasmbed-dashboard
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - ip: 192.168.100.183
+        ipMode: VIP
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"wasmbed-gateway","namespace":"wasmbed"},"spec":{"ports":[{"name":"http","port":8080,"targetPort":8080},{"name":"tls","port":8081,"targetPort":8443}],"selector":{"app":"wasmbed-gateway"}}}
+    creationTimestamp: "2026-05-15T16:27:33Z"
+    name: wasmbed-gateway
+    namespace: wasmbed
+    resourceVersion: "1015"
+    uid: 3734afee-d09c-49a7-acdb-addffbb81aad
+  spec:
+    clusterIP: 10.43.3.151
+    clusterIPs:
+    - 10.43.3.151
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    - name: tls
+      port: 8081
+      protocol: TCP
+      targetPort: 8443
+    selector:
+      app: wasmbed-gateway
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "12"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"energy-probe"},"name":"energy-probe","namespace":"wasmbed"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"energy-probe"}},"template":{"metadata":{"labels":{"app":"energy-probe"}},"spec":{"containers":[{"env":[{"name":"IDLE_SECS","value":"30"},{"name":"LOAD_SECS","value":"30"},{"name":"BURN_N","value":"200000"}],"image":"localhost:5000/wasmbed/energy-probe:latest","imagePullPolicy":"IfNotPresent","name":"energy-probe","resources":{"limits":{"cpu":"2","memory":"256Mi"},"requests":{"cpu":"2","memory":"256Mi"}}}]}}}}
+    creationTimestamp: "2026-08-19T15:34:23Z"
+    generation: 13
+    labels:
+      app: energy-probe
+    name: energy-probe
+    namespace: wasmbed
+    resourceVersion: "65314845"
+    uid: 67c64e3b-377f-4bef-b8f0-6c5c209c8bc0
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 0
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: energy-probe
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        labels:
+          app: energy-probe
+      spec:
+        containers:
+        - env:
+          - name: IDLE_SECS
+            value: "30"
+          - name: LOAD_SECS
+            value: "30"
+          - name: BURN_N
+            value: "5000000"
+          - name: FUEL_BUDGET
+            value: "1000000000"
+          image: localhost:5000/wasmbed/energy-probe:paperverify2
+          imagePullPolicy: Never
+          name: energy-probe
+          resources:
+            limits:
+              cpu: "2"
+              memory: 256Mi
+            requests:
+              cpu: "2"
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    conditions:
+    - lastTransitionTime: "2026-08-19T15:34:24Z"
+      lastUpdateTime: "2026-08-19T15:34:24Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-08-19T15:34:23Z"
+      lastUpdateTime: "2026-08-19T17:30:22Z"
+      message: ReplicaSet "energy-probe-79b7f8f9d8" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 13
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "16"
+    creationTimestamp: "2026-05-15T16:27:54Z"
+    generation: 18
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+    name: gateway-1-deployment
+    namespace: wasmbed
+    resourceVersion: "72496132"
+    uid: 0d992b87-17fb-446e-9d1f-73aeb28b6670
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: wasmbed-gateway
+        gateway: gateway-1
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-20T15:06:15Z"
+        labels:
+          app: wasmbed-gateway
+          gateway: gateway-1
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/wasmbed-gateway
+          - --bind-addr
+          - 0.0.0.0:8443
+          - --http-addr
+          - 0.0.0.0:8080
+          - --private-key
+          - /certs/server-key.pem
+          - --certificate
+          - /certs/server-cert.pem
+          - --client-ca
+          - /certs/ca-cert.pem
+          - --namespace
+          - wasmbed
+          - --pod-namespace
+          - wasmbed
+          - --pod-name
+          - gateway-1
+          env:
+          - name: GATEWAY_NAME
+            value: gateway-1
+          - name: GATEWAY_ENDPOINT
+            value: wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/gateway:v1.0
+          imagePullPolicy: Never
+          name: gateway
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /certs
+            name: certificates
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway
+        serviceAccountName: wasmbed-gateway
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: certificates
+          secret:
+            defaultMode: 420
+            secretName: gateway-certificates
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-08-19T11:10:27Z"
+      lastUpdateTime: "2026-08-19T11:10:27Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-05-16T06:07:16Z"
+      lastUpdateTime: "2026-08-21T08:28:41Z"
+      message: ReplicaSet "gateway-1-deployment-74589d64db" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 18
+    readyReplicas: 1
+    replicas: 1
+    terminatingReplicas: 0
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "15"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"wasmbed-api-server","namespace":"wasmbed"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"wasmbed-api-server"}},"template":{"metadata":{"labels":{"app":"wasmbed-api-server"}},"spec":{"containers":[{"env":[{"name":"RUST_LOG","value":"info"},{"name":"WASMBED_API_SERVER_PORT","value":"3001"},{"name":"WASMBED_API_SERVER_GATEWAY_ENDPOINT","value":"http://gateway-1-service.wasmbed.svc.cluster.local:8080"},{"name":"RENODE_GATEWAY_HOST","value":"192.168.1.1"},{"name":"RENODE_GATEWAY_PORT","value":"30443"},{"name":"WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT","value":"http://172.18.0.1:30460"},{"name":"RENODE_USE_DOCKER","value":"true"},{"name":"ZEPHYR_WORKSPACE","value":"/home/ubuntu/retrospect/zephyr-workspace"}],"image":"localhost:5000/wasmbed/api-server:latest","imagePullPolicy":"IfNotPresent","name":"api-server","ports":[{"containerPort":3001,"name":"http"}],"resources":{"limits":{"cpu":"500m","memory":"512Mi"},"requests":{"cpu":"100m","memory":"128Mi"}},"volumeMounts":[{"mountPath":"/var/run/docker.sock","name":"docker-sock","readOnly":false},{"mountPath":"/home/ubuntu/retrospect/zephyr-workspace","name":"zephyr-workspace","readOnly":true},{"mountPath":"/home/ubuntu/retrospect/zephyr-workspace/renode-scripts","name":"renode-scripts","readOnly":false}]}],"securityContext":{"fsGroup":988,"supplementalGroups":[988]},"serviceAccountName":"wasmbed-api-server","volumes":[{"hostPath":{"path":"/var/run/docker.sock","type":"Socket"},"name":"docker-sock"},{"hostPath":{"path":"/home/ubuntu/retrospect/zephyr-workspace","type":"Directory"},"name":"zephyr-workspace"},{"hostPath":{"path":"/home/ubuntu/retrospect/zephyr-workspace/renode-scripts","type":"DirectoryOrCreate"},"name":"renode-scripts"}]}}}}
+    creationTimestamp: "2026-05-15T16:27:33Z"
+    generation: 17
+    name: wasmbed-api-server
+    namespace: wasmbed
+    resourceVersion: "72496160"
+    uid: 5271893a-8c5c-4cb9-8d46-60843e62e2fd
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: wasmbed-api-server
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-20T16:25:58Z"
+        labels:
+          app: wasmbed-api-server
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_PORT
+            value: "3001"
+          - name: WASMBED_API_SERVER_GATEWAY_ENDPOINT
+            value: http://gateway-1-service.wasmbed.svc.cluster.local:8080
+          - name: RENODE_GATEWAY_HOST
+            value: 192.168.1.1
+          - name: RENODE_GATEWAY_PORT
+            value: "30443"
+          - name: WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT
+            value: http://172.18.0.1:30460
+          - name: RENODE_USE_DOCKER
+            value: "true"
+          - name: ZEPHYR_WORKSPACE
+            value: /home/ubuntu/retrospect/zephyr-workspace
+          - name: WASMBED_DEVICE_IDENTITY_DIR
+            value: /home/ubuntu/retrospect/zephyr-workspace/device-identities
+          image: localhost:5000/wasmbed/api-server:v1.0
+          imagePullPolicy: IfNotPresent
+          name: api-server
+          ports:
+          - containerPort: 3001
+            name: http
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+            name: zephyr-workspace
+            readOnly: true
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            name: renode-scripts
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 988
+          supplementalGroups:
+          - 988
+        serviceAccount: wasmbed-api-server
+        serviceAccountName: wasmbed-api-server
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+          name: docker-sock
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace
+            type: Directory
+          name: zephyr-workspace
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            type: DirectoryOrCreate
+          name: renode-scripts
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-08-19T10:50:54Z"
+      lastUpdateTime: "2026-08-19T10:50:54Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-05-15T16:27:33Z"
+      lastUpdateTime: "2026-08-21T08:28:41Z"
+      message: ReplicaSet "wasmbed-api-server-fcff6c7b5" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 17
+    readyReplicas: 1
+    replicas: 1
+    terminatingReplicas: 0
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "9"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"wasmbed-application-controller","namespace":"wasmbed"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"wasmbed-application-controller"}},"template":{"metadata":{"labels":{"app":"wasmbed-application-controller"}},"spec":{"containers":[{"env":[{"name":"RUST_LOG","value":"info"},{"name":"GATEWAY_ENDPOINT","value":"http://wasmbed-gateway.wasmbed.svc.cluster.local:8080"}],"image":"localhost:5000/wasmbed/application-controller:latest","imagePullPolicy":"IfNotPresent","name":"application-controller"}],"serviceAccountName":"wasmbed-application-controller"}}}}
+    creationTimestamp: "2026-05-15T16:27:33Z"
+    generation: 25
+    name: wasmbed-application-controller
+    namespace: wasmbed
+    resourceVersion: "72524830"
+    uid: 347cdcd7-3c44-4bf6-a2b5-0d692b5cb0c1
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: wasmbed-application-controller
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T13:43:56Z"
+        labels:
+          app: wasmbed-application-controller
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: GATEWAY_ENDPOINT
+            value: http://wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/application-controller:fixstatus1
+          imagePullPolicy: IfNotPresent
+          name: application-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-application-controller
+        serviceAccountName: wasmbed-application-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2026-05-15T16:27:33Z"
+      lastUpdateTime: "2026-08-19T13:43:58Z"
+      message: ReplicaSet "wasmbed-application-controller-c95d5d4c8" has successfully
+        progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2026-08-21T08:46:21Z"
+      lastUpdateTime: "2026-08-21T08:46:21Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 25
+    readyReplicas: 1
+    replicas: 1
+    terminatingReplicas: 0
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"wasmbed-dashboard","namespace":"wasmbed"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"wasmbed-dashboard"}},"template":{"metadata":{"labels":{"app":"wasmbed-dashboard"}},"spec":{"containers":[{"env":[{"name":"REACT_APP_API_BASE_URL","value":"http://wasmbed-api-server.wasmbed.svc.cluster.local:3001"}],"image":"localhost:5000/wasmbed/dashboard:latest","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"path":"/","port":3000},"initialDelaySeconds":30,"periodSeconds":10},"name":"dashboard","ports":[{"containerPort":3000,"name":"http"}],"readinessProbe":{"httpGet":{"path":"/","port":3000},"initialDelaySeconds":10,"periodSeconds":5},"resources":{"limits":{"cpu":"200m","memory":"256Mi"},"requests":{"cpu":"50m","memory":"64Mi"}}}]}}}}
+    creationTimestamp: "2026-05-15T16:27:33Z"
+    generation: 2
+    name: wasmbed-dashboard
+    namespace: wasmbed
+    resourceVersion: "385050"
+    uid: 442dbd9b-0dde-424a-b88e-0b2944c0e074
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 0
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: wasmbed-dashboard
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        labels:
+          app: wasmbed-dashboard
+      spec:
+        containers:
+        - env:
+          - name: REACT_APP_API_BASE_URL
+            value: http://wasmbed-api-server.wasmbed.svc.cluster.local:3001
+          image: localhost:5000/wasmbed/dashboard:latest
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: dashboard
+          ports:
+          - containerPort: 3000
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    conditions:
+    - lastTransitionTime: "2026-05-15T16:27:49Z"
+      lastUpdateTime: "2026-05-15T16:27:49Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-05-15T16:27:33Z"
+      lastUpdateTime: "2026-05-15T16:27:49Z"
+      message: ReplicaSet "wasmbed-dashboard-7c979dc7b8" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 2
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "4"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"wasmbed-device-controller","namespace":"wasmbed"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"wasmbed-device-controller"}},"template":{"metadata":{"labels":{"app":"wasmbed-device-controller"}},"spec":{"containers":[{"env":[{"name":"RUST_LOG","value":"info"},{"name":"WASMBED_API_SERVER_URL","value":"http://wasmbed-api-server.wasmbed.svc.cluster.local:3001"}],"image":"localhost:5000/wasmbed/device-controller:latest","imagePullPolicy":"IfNotPresent","name":"device-controller"}],"serviceAccountName":"wasmbed-device-controller"}}}}
+    creationTimestamp: "2026-05-15T16:27:33Z"
+    generation: 5
+    name: wasmbed-device-controller
+    namespace: wasmbed
+    resourceVersion: "385046"
+    uid: f0b982ad-0589-47d5-80e9-0f3692547c6c
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 0
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: wasmbed-device-controller
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        labels:
+          app: wasmbed-device-controller
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_URL
+            value: http://wasmbed-api-server.wasmbed.svc.cluster.local:3001
+          image: localhost:5000/wasmbed/device-controller:fix2
+          imagePullPolicy: IfNotPresent
+          name: device-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-device-controller
+        serviceAccountName: wasmbed-device-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    conditions:
+    - lastTransitionTime: "2026-05-15T16:27:36Z"
+      lastUpdateTime: "2026-05-15T16:27:36Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-05-15T16:27:33Z"
+      lastUpdateTime: "2026-05-15T17:23:43Z"
+      message: ReplicaSet "wasmbed-device-controller-777675f476" has successfully
+        progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 5
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"wasmbed-gateway-controller","namespace":"wasmbed"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"wasmbed-gateway-controller"}},"template":{"metadata":{"labels":{"app":"wasmbed-gateway-controller"}},"spec":{"containers":[{"env":[{"name":"RUST_LOG","value":"info"}],"image":"localhost:5000/wasmbed/gateway-controller:latest","imagePullPolicy":"IfNotPresent","name":"gateway-controller"}],"serviceAccountName":"wasmbed-gateway-controller"}}}}
+    creationTimestamp: "2026-05-15T16:27:33Z"
+    generation: 2
+    name: wasmbed-gateway-controller
+    namespace: wasmbed
+    resourceVersion: "385042"
+    uid: a7d44163-fa5c-4ae3-9241-d09af94518e1
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 0
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: wasmbed-gateway-controller
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        labels:
+          app: wasmbed-gateway-controller
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          image: localhost:5000/wasmbed/gateway-controller:latest
+          imagePullPolicy: IfNotPresent
+          name: gateway-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway-controller
+        serviceAccountName: wasmbed-gateway-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    conditions:
+    - lastTransitionTime: "2026-05-15T16:27:36Z"
+      lastUpdateTime: "2026-05-15T16:27:36Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-05-15T16:27:33Z"
+      lastUpdateTime: "2026-05-15T16:27:36Z"
+      message: ReplicaSet "wasmbed-gateway-controller-65f7884677" has successfully
+        progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 2
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "11"
+    creationTimestamp: "2026-08-19T17:20:18Z"
+    generation: 2
+    labels:
+      app: energy-probe
+      pod-template-hash: 596f4574d
+    name: energy-probe-596f4574d
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: energy-probe
+      uid: 67c64e3b-377f-4bef-b8f0-6c5c209c8bc0
+    resourceVersion: "65265208"
+    uid: 1f4ec0ed-042e-41a4-91ba-d72dfc1ee576
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: energy-probe
+        pod-template-hash: 596f4574d
+    template:
+      metadata:
+        labels:
+          app: energy-probe
+          pod-template-hash: 596f4574d
+      spec:
+        containers:
+        - env:
+          - name: IDLE_SECS
+            value: "30"
+          - name: LOAD_SECS
+            value: "30"
+          - name: BURN_N
+            value: "1000000"
+          - name: FUEL_BUDGET
+            value: "1000000000"
+          image: localhost:5000/wasmbed/energy-probe:paperverify2
+          imagePullPolicy: Never
+          name: energy-probe
+          resources:
+            limits:
+              cpu: "2"
+              memory: 256Mi
+            requests:
+              cpu: "2"
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "10"
+    creationTimestamp: "2026-08-19T16:41:17Z"
+    generation: 2
+    labels:
+      app: energy-probe
+      pod-template-hash: 5c6f5db9bc
+    name: energy-probe-5c6f5db9bc
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: energy-probe
+      uid: 67c64e3b-377f-4bef-b8f0-6c5c209c8bc0
+    resourceVersion: "65238948"
+    uid: 91e00e72-38a3-46dd-9aee-7bb51c1ac90b
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: energy-probe
+        pod-template-hash: 5c6f5db9bc
+    template:
+      metadata:
+        labels:
+          app: energy-probe
+          pod-template-hash: 5c6f5db9bc
+      spec:
+        containers:
+        - env:
+          - name: IDLE_SECS
+            value: "30"
+          - name: LOAD_SECS
+            value: "30"
+          - name: BURN_N
+            value: "200000"
+          - name: FUEL_BUDGET
+            value: "5000000"
+          image: localhost:5000/wasmbed/energy-probe:paperverify2
+          imagePullPolicy: Never
+          name: energy-probe
+          resources:
+            limits:
+              cpu: "2"
+              memory: 256Mi
+            requests:
+              cpu: "2"
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "8"
+    creationTimestamp: "2026-08-19T16:27:19Z"
+    generation: 2
+    labels:
+      app: energy-probe
+      pod-template-hash: 665fbc4778
+    name: energy-probe-665fbc4778
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: energy-probe
+      uid: 67c64e3b-377f-4bef-b8f0-6c5c209c8bc0
+    resourceVersion: "65134831"
+    uid: 68f7f0a0-3bf5-42d7-ad91-0cabcc3643e7
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: energy-probe
+        pod-template-hash: 665fbc4778
+    template:
+      metadata:
+        labels:
+          app: energy-probe
+          pod-template-hash: 665fbc4778
+      spec:
+        containers:
+        - env:
+          - name: IDLE_SECS
+            value: "30"
+          - name: LOAD_SECS
+            value: "30"
+          - name: BURN_N
+            value: "1000000"
+          image: localhost:5000/wasmbed/energy-probe:paperverify
+          imagePullPolicy: Never
+          name: energy-probe
+          resources:
+            limits:
+              cpu: "2"
+              memory: 256Mi
+            requests:
+              cpu: "2"
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "2"
+    creationTimestamp: "2026-08-19T15:34:23Z"
+    generation: 2
+    labels:
+      app: energy-probe
+      pod-template-hash: 768c5fc964
+    name: energy-probe-768c5fc964
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: energy-probe
+      uid: 67c64e3b-377f-4bef-b8f0-6c5c209c8bc0
+    resourceVersion: "64961507"
+    uid: 878ab8db-0f40-4c49-b463-64413f012d0e
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: energy-probe
+        pod-template-hash: 768c5fc964
+    template:
+      metadata:
+        labels:
+          app: energy-probe
+          pod-template-hash: 768c5fc964
+      spec:
+        containers:
+        - env:
+          - name: IDLE_SECS
+            value: "30"
+          - name: LOAD_SECS
+            value: "30"
+          - name: BURN_N
+            value: "200000"
+          image: localhost:5000/wasmbed/energy-probe:paperverify
+          imagePullPolicy: IfNotPresent
+          name: energy-probe
+          resources:
+            limits:
+              cpu: "2"
+              memory: 256Mi
+            requests:
+              cpu: "2"
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "0"
+      deployment.kubernetes.io/max-replicas: "0"
+      deployment.kubernetes.io/revision: "12"
+    creationTimestamp: "2026-08-19T17:30:20Z"
+    generation: 2
+    labels:
+      app: energy-probe
+      pod-template-hash: 79b7f8f9d8
+    name: energy-probe-79b7f8f9d8
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: energy-probe
+      uid: 67c64e3b-377f-4bef-b8f0-6c5c209c8bc0
+    resourceVersion: "65314843"
+    uid: 11a1179b-e4cf-4244-ae8f-aa353997902c
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: energy-probe
+        pod-template-hash: 79b7f8f9d8
+    template:
+      metadata:
+        labels:
+          app: energy-probe
+          pod-template-hash: 79b7f8f9d8
+      spec:
+        containers:
+        - env:
+          - name: IDLE_SECS
+            value: "30"
+          - name: LOAD_SECS
+            value: "30"
+          - name: BURN_N
+            value: "5000000"
+          - name: FUEL_BUDGET
+            value: "1000000000"
+          image: localhost:5000/wasmbed/energy-probe:paperverify2
+          imagePullPolicy: Never
+          name: energy-probe
+          resources:
+            limits:
+              cpu: "2"
+              memory: 256Mi
+            requests:
+              cpu: "2"
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "9"
+    creationTimestamp: "2026-08-19T16:40:55Z"
+    generation: 2
+    labels:
+      app: energy-probe
+      pod-template-hash: 7c5b6797d6
+    name: energy-probe-7c5b6797d6
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: energy-probe
+      uid: 67c64e3b-377f-4bef-b8f0-6c5c209c8bc0
+    resourceVersion: "65136042"
+    uid: 78ac2eed-b2bd-45d6-b593-4e20e0bb65fc
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: energy-probe
+        pod-template-hash: 7c5b6797d6
+    template:
+      metadata:
+        labels:
+          app: energy-probe
+          pod-template-hash: 7c5b6797d6
+      spec:
+        containers:
+        - env:
+          - name: IDLE_SECS
+            value: "30"
+          - name: LOAD_SECS
+            value: "30"
+          - name: BURN_N
+            value: "1000000"
+          image: localhost:5000/wasmbed/energy-probe:paperverify2
+          imagePullPolicy: Never
+          name: energy-probe
+          resources:
+            limits:
+              cpu: "2"
+              memory: 256Mi
+            requests:
+              cpu: "2"
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "7"
+      deployment.kubernetes.io/revision-history: 3,5
+    creationTimestamp: "2026-08-19T15:34:23Z"
+    generation: 7
+    labels:
+      app: energy-probe
+      pod-template-hash: 7c87fd495
+    name: energy-probe-7c87fd495
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: energy-probe
+      uid: 67c64e3b-377f-4bef-b8f0-6c5c209c8bc0
+    resourceVersion: "65100695"
+    uid: 180f3a54-117b-458b-835c-da8f669be69d
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: energy-probe
+        pod-template-hash: 7c87fd495
+    template:
+      metadata:
+        labels:
+          app: energy-probe
+          pod-template-hash: 7c87fd495
+      spec:
+        containers:
+        - env:
+          - name: IDLE_SECS
+            value: "30"
+          - name: LOAD_SECS
+            value: "30"
+          - name: BURN_N
+            value: "200000"
+          image: localhost:5000/wasmbed/energy-probe:paperverify
+          imagePullPolicy: Never
+          name: energy-probe
+          resources:
+            limits:
+              cpu: "2"
+              memory: 256Mi
+            requests:
+              cpu: "2"
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 7
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "6"
+      deployment.kubernetes.io/revision-history: "4"
+    creationTimestamp: "2026-08-19T15:35:00Z"
+    generation: 4
+    labels:
+      app: energy-probe
+      pod-template-hash: 865b4f6d6
+    name: energy-probe-865b4f6d6
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: energy-probe
+      uid: 67c64e3b-377f-4bef-b8f0-6c5c209c8bc0
+    resourceVersion: "64999126"
+    uid: f74afbd0-0a03-49a5-a714-bcd182c6c884
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: energy-probe
+        pod-template-hash: 865b4f6d6
+    template:
+      metadata:
+        labels:
+          app: energy-probe
+          pod-template-hash: 865b4f6d6
+      spec:
+        containers:
+        - env:
+          - name: IDLE_SECS
+            value: "30"
+          - name: LOAD_SECS
+            value: "30"
+          - name: BURN_N
+            value: "50000"
+          image: localhost:5000/wasmbed/energy-probe:paperverify
+          imagePullPolicy: Never
+          name: energy-probe
+          resources:
+            limits:
+              cpu: "2"
+              memory: 256Mi
+            requests:
+              cpu: "2"
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2026-08-19T15:34:23Z"
+    generation: 2
+    labels:
+      app: energy-probe
+      pod-template-hash: 8d5876d84
+    name: energy-probe-8d5876d84
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: energy-probe
+      uid: 67c64e3b-377f-4bef-b8f0-6c5c209c8bc0
+    resourceVersion: "64961551"
+    uid: baa4de95-3c4f-4e1e-9bb3-ec81dc61a174
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: energy-probe
+        pod-template-hash: 8d5876d84
+    template:
+      metadata:
+        labels:
+          app: energy-probe
+          pod-template-hash: 8d5876d84
+      spec:
+        containers:
+        - env:
+          - name: IDLE_SECS
+            value: "30"
+          - name: LOAD_SECS
+            value: "30"
+          - name: BURN_N
+            value: "200000"
+          image: localhost:5000/wasmbed/energy-probe:latest
+          imagePullPolicy: IfNotPresent
+          name: energy-probe
+          resources:
+            limits:
+              cpu: "2"
+              memory: 256Mi
+            requests:
+              cpu: "2"
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "6"
+    creationTimestamp: "2026-05-16T10:59:37Z"
+    generation: 2
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+      pod-template-hash: 64c66b5f6
+    name: gateway-1-deployment-64c66b5f6
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: gateway-1-deployment
+      uid: 0d992b87-17fb-446e-9d1f-73aeb28b6670
+    resourceVersion: "397047"
+    uid: 883f7e24-5d77-4813-82bd-44d46046ac7c
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-gateway
+        gateway: gateway-1
+        pod-template-hash: 64c66b5f6
+    template:
+      metadata:
+        labels:
+          app: wasmbed-gateway
+          gateway: gateway-1
+          pod-template-hash: 64c66b5f6
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/wasmbed-gateway
+          - --bind-addr
+          - 0.0.0.0:8443
+          - --http-addr
+          - 0.0.0.0:8080
+          - --private-key
+          - /certs/server-key.pem
+          - --certificate
+          - /certs/server-cert.pem
+          - --client-ca
+          - /certs/ca-cert.pem
+          - --namespace
+          - wasmbed
+          - --pod-namespace
+          - wasmbed
+          - --pod-name
+          - gateway-1
+          env:
+          - name: GATEWAY_NAME
+            value: gateway-1
+          - name: GATEWAY_ENDPOINT
+            value: wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/gateway:fixhb1
+          imagePullPolicy: Never
+          name: gateway
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /certs
+            name: certificates
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway
+        serviceAccountName: wasmbed-gateway
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: certificates
+          secret:
+            defaultMode: 420
+            secretName: gateway-certificates
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "7"
+      deployment.kubernetes.io/revision-history: "5"
+    creationTimestamp: "2026-05-16T06:15:25Z"
+    generation: 4
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+      pod-template-hash: 6dd6bfdc78
+    name: gateway-1-deployment-6dd6bfdc78
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: gateway-1-deployment
+      uid: 0d992b87-17fb-446e-9d1f-73aeb28b6670
+    resourceVersion: "397742"
+    uid: dfba7e1c-1774-4e3f-a4e9-149d71d3507d
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-gateway
+        gateway: gateway-1
+        pod-template-hash: 6dd6bfdc78
+    template:
+      metadata:
+        labels:
+          app: wasmbed-gateway
+          gateway: gateway-1
+          pod-template-hash: 6dd6bfdc78
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/wasmbed-gateway
+          - --bind-addr
+          - 0.0.0.0:8443
+          - --http-addr
+          - 0.0.0.0:8080
+          - --private-key
+          - /certs/server-key.pem
+          - --certificate
+          - /certs/server-cert.pem
+          - --client-ca
+          - /certs/ca-cert.pem
+          - --namespace
+          - wasmbed
+          - --pod-namespace
+          - wasmbed
+          - --pod-name
+          - gateway-1
+          env:
+          - name: GATEWAY_NAME
+            value: gateway-1
+          - name: GATEWAY_ENDPOINT
+            value: wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/gateway:fixtls4
+          imagePullPolicy: Never
+          name: gateway
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /certs
+            name: certificates
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway
+        serviceAccountName: wasmbed-gateway
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: certificates
+          secret:
+            defaultMode: 420
+            secretName: gateway-certificates
+  status:
+    observedGeneration: 4
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "12"
+    creationTimestamp: "2026-08-20T13:10:19Z"
+    generation: 2
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+      pod-template-hash: 6f8695c9b7
+    name: gateway-1-deployment-6f8695c9b7
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: gateway-1-deployment
+      uid: 0d992b87-17fb-446e-9d1f-73aeb28b6670
+    resourceVersion: "68541365"
+    uid: 48896156-1b7e-493a-8d6e-337d3695fcf4
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-gateway
+        gateway: gateway-1
+        pod-template-hash: 6f8695c9b7
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T13:39:37Z"
+        labels:
+          app: wasmbed-gateway
+          gateway: gateway-1
+          pod-template-hash: 6f8695c9b7
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/wasmbed-gateway
+          - --bind-addr
+          - 0.0.0.0:8443
+          - --http-addr
+          - 0.0.0.0:8080
+          - --private-key
+          - /certs/server-key.pem
+          - --certificate
+          - /certs/server-cert.pem
+          - --client-ca
+          - /certs/ca-cert.pem
+          - --namespace
+          - wasmbed
+          - --pod-namespace
+          - wasmbed
+          - --pod-name
+          - gateway-1
+          env:
+          - name: GATEWAY_NAME
+            value: gateway-1
+          - name: GATEWAY_ENDPOINT
+            value: wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/gateway:mtls2
+          imagePullPolicy: Never
+          name: gateway
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /certs
+            name: certificates
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway
+        serviceAccountName: wasmbed-gateway
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: certificates
+          secret:
+            defaultMode: 420
+            secretName: gateway-certificates
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "16"
+    creationTimestamp: "2026-08-21T08:28:39Z"
+    generation: 1
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+      pod-template-hash: 74589d64db
+    name: gateway-1-deployment-74589d64db
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: gateway-1-deployment
+      uid: 0d992b87-17fb-446e-9d1f-73aeb28b6670
+    resourceVersion: "72494666"
+    uid: de3f492f-312d-4caf-a144-38b5683edd10
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: wasmbed-gateway
+        gateway: gateway-1
+        pod-template-hash: 74589d64db
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-20T15:06:15Z"
+        labels:
+          app: wasmbed-gateway
+          gateway: gateway-1
+          pod-template-hash: 74589d64db
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/wasmbed-gateway
+          - --bind-addr
+          - 0.0.0.0:8443
+          - --http-addr
+          - 0.0.0.0:8080
+          - --private-key
+          - /certs/server-key.pem
+          - --certificate
+          - /certs/server-cert.pem
+          - --client-ca
+          - /certs/ca-cert.pem
+          - --namespace
+          - wasmbed
+          - --pod-namespace
+          - wasmbed
+          - --pod-name
+          - gateway-1
+          env:
+          - name: GATEWAY_NAME
+            value: gateway-1
+          - name: GATEWAY_ENDPOINT
+            value: wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/gateway:v1.0
+          imagePullPolicy: Never
+          name: gateway
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /certs
+            name: certificates
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway
+        serviceAccountName: wasmbed-gateway
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: certificates
+          secret:
+            defaultMode: 420
+            secretName: gateway-certificates
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "15"
+    creationTimestamp: "2026-08-20T15:06:15Z"
+    generation: 2
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+      pod-template-hash: 74fd96c45d
+    name: gateway-1-deployment-74fd96c45d
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: gateway-1-deployment
+      uid: 0d992b87-17fb-446e-9d1f-73aeb28b6670
+    resourceVersion: "72496130"
+    uid: 6c42bf84-11cd-4c13-8744-ac798ea47cf7
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-gateway
+        gateway: gateway-1
+        pod-template-hash: 74fd96c45d
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-20T15:06:15Z"
+        labels:
+          app: wasmbed-gateway
+          gateway: gateway-1
+          pod-template-hash: 74fd96c45d
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/wasmbed-gateway
+          - --bind-addr
+          - 0.0.0.0:8443
+          - --http-addr
+          - 0.0.0.0:8080
+          - --private-key
+          - /certs/server-key.pem
+          - --certificate
+          - /certs/server-cert.pem
+          - --client-ca
+          - /certs/ca-cert.pem
+          - --namespace
+          - wasmbed
+          - --pod-namespace
+          - wasmbed
+          - --pod-name
+          - gateway-1
+          env:
+          - name: GATEWAY_NAME
+            value: gateway-1
+          - name: GATEWAY_ENDPOINT
+            value: wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/gateway:mtls5
+          imagePullPolicy: Never
+          name: gateway
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /certs
+            name: certificates
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway
+        serviceAccountName: wasmbed-gateway
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: certificates
+          secret:
+            defaultMode: 420
+            secretName: gateway-certificates
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "14"
+    creationTimestamp: "2026-08-20T14:51:19Z"
+    generation: 2
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+      pod-template-hash: 75c656778b
+    name: gateway-1-deployment-75c656778b
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: gateway-1-deployment
+      uid: 0d992b87-17fb-446e-9d1f-73aeb28b6670
+    resourceVersion: "68662926"
+    uid: 2335874c-4191-4027-83e9-3d508c374cfe
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-gateway
+        gateway: gateway-1
+        pod-template-hash: 75c656778b
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T13:39:37Z"
+        labels:
+          app: wasmbed-gateway
+          gateway: gateway-1
+          pod-template-hash: 75c656778b
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/wasmbed-gateway
+          - --bind-addr
+          - 0.0.0.0:8443
+          - --http-addr
+          - 0.0.0.0:8080
+          - --private-key
+          - /certs/server-key.pem
+          - --certificate
+          - /certs/server-cert.pem
+          - --client-ca
+          - /certs/ca-cert.pem
+          - --namespace
+          - wasmbed
+          - --pod-namespace
+          - wasmbed
+          - --pod-name
+          - gateway-1
+          env:
+          - name: GATEWAY_NAME
+            value: gateway-1
+          - name: GATEWAY_ENDPOINT
+            value: wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/gateway:mtls5
+          imagePullPolicy: Never
+          name: gateway
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /certs
+            name: certificates
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway
+        serviceAccountName: wasmbed-gateway
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: certificates
+          secret:
+            defaultMode: 420
+            secretName: gateway-certificates
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "8"
+    creationTimestamp: "2026-05-16T11:33:54Z"
+    generation: 2
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+      pod-template-hash: 7c684f64b9
+    name: gateway-1-deployment-7c684f64b9
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: gateway-1-deployment
+      uid: 0d992b87-17fb-446e-9d1f-73aeb28b6670
+    resourceVersion: "64674885"
+    uid: c68a212e-8368-4f0b-bc46-43fdff39f1e5
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-gateway
+        gateway: gateway-1
+        pod-template-hash: 7c684f64b9
+    template:
+      metadata:
+        labels:
+          app: wasmbed-gateway
+          gateway: gateway-1
+          pod-template-hash: 7c684f64b9
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/wasmbed-gateway
+          - --bind-addr
+          - 0.0.0.0:8443
+          - --http-addr
+          - 0.0.0.0:8080
+          - --private-key
+          - /certs/server-key.pem
+          - --certificate
+          - /certs/server-cert.pem
+          - --client-ca
+          - /certs/ca-cert.pem
+          - --namespace
+          - wasmbed
+          - --pod-namespace
+          - wasmbed
+          - --pod-name
+          - gateway-1
+          env:
+          - name: GATEWAY_NAME
+            value: gateway-1
+          - name: GATEWAY_ENDPOINT
+            value: wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/gateway:fixhb2
+          imagePullPolicy: Never
+          name: gateway
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /certs
+            name: certificates
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway
+        serviceAccountName: wasmbed-gateway
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: certificates
+          secret:
+            defaultMode: 420
+            secretName: gateway-certificates
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "9"
+    creationTimestamp: "2026-08-19T11:10:26Z"
+    generation: 2
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+      pod-template-hash: 7c6d6cdf7
+    name: gateway-1-deployment-7c6d6cdf7
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: gateway-1-deployment
+      uid: 0d992b87-17fb-446e-9d1f-73aeb28b6670
+    resourceVersion: "64679216"
+    uid: a3b11b8e-ad63-46c4-b685-80f69a42f39f
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-gateway
+        gateway: gateway-1
+        pod-template-hash: 7c6d6cdf7
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T11:10:26Z"
+        labels:
+          app: wasmbed-gateway
+          gateway: gateway-1
+          pod-template-hash: 7c6d6cdf7
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/wasmbed-gateway
+          - --bind-addr
+          - 0.0.0.0:8443
+          - --http-addr
+          - 0.0.0.0:8080
+          - --private-key
+          - /certs/server-key.pem
+          - --certificate
+          - /certs/server-cert.pem
+          - --client-ca
+          - /certs/ca-cert.pem
+          - --namespace
+          - wasmbed
+          - --pod-namespace
+          - wasmbed
+          - --pod-name
+          - gateway-1
+          env:
+          - name: GATEWAY_NAME
+            value: gateway-1
+          - name: GATEWAY_ENDPOINT
+            value: wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/gateway:fixhb2
+          imagePullPolicy: Never
+          name: gateway
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /certs
+            name: certificates
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway
+        serviceAccountName: wasmbed-gateway
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: certificates
+          secret:
+            defaultMode: 420
+            secretName: gateway-certificates
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "13"
+    creationTimestamp: "2026-08-20T14:28:48Z"
+    generation: 2
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+      pod-template-hash: 7d55fd6777
+    name: gateway-1-deployment-7d55fd6777
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: gateway-1-deployment
+      uid: 0d992b87-17fb-446e-9d1f-73aeb28b6670
+    resourceVersion: "68618636"
+    uid: 90b8b854-3a46-4574-a51e-deeaffb5dd7d
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-gateway
+        gateway: gateway-1
+        pod-template-hash: 7d55fd6777
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T13:39:37Z"
+        labels:
+          app: wasmbed-gateway
+          gateway: gateway-1
+          pod-template-hash: 7d55fd6777
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/wasmbed-gateway
+          - --bind-addr
+          - 0.0.0.0:8443
+          - --http-addr
+          - 0.0.0.0:8080
+          - --private-key
+          - /certs/server-key.pem
+          - --certificate
+          - /certs/server-cert.pem
+          - --client-ca
+          - /certs/ca-cert.pem
+          - --namespace
+          - wasmbed
+          - --pod-namespace
+          - wasmbed
+          - --pod-name
+          - gateway-1
+          env:
+          - name: GATEWAY_NAME
+            value: gateway-1
+          - name: GATEWAY_ENDPOINT
+            value: wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/gateway:mtls4
+          imagePullPolicy: Never
+          name: gateway
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /certs
+            name: certificates
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway
+        serviceAccountName: wasmbed-gateway
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: certificates
+          secret:
+            defaultMode: 420
+            secretName: gateway-certificates
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "10"
+    creationTimestamp: "2026-08-19T13:39:37Z"
+    generation: 2
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+      pod-template-hash: c58b566f6
+    name: gateway-1-deployment-c58b566f6
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: gateway-1-deployment
+      uid: 0d992b87-17fb-446e-9d1f-73aeb28b6670
+    resourceVersion: "68333215"
+    uid: 09978cbd-8067-4f5f-8259-5afc5f5e7968
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-gateway
+        gateway: gateway-1
+        pod-template-hash: c58b566f6
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T13:39:37Z"
+        labels:
+          app: wasmbed-gateway
+          gateway: gateway-1
+          pod-template-hash: c58b566f6
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/wasmbed-gateway
+          - --bind-addr
+          - 0.0.0.0:8443
+          - --http-addr
+          - 0.0.0.0:8080
+          - --private-key
+          - /certs/server-key.pem
+          - --certificate
+          - /certs/server-cert.pem
+          - --client-ca
+          - /certs/ca-cert.pem
+          - --namespace
+          - wasmbed
+          - --pod-namespace
+          - wasmbed
+          - --pod-name
+          - gateway-1
+          env:
+          - name: GATEWAY_NAME
+            value: gateway-1
+          - name: GATEWAY_ENDPOINT
+            value: wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/gateway:fixhb2
+          imagePullPolicy: Never
+          name: gateway
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /certs
+            name: certificates
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway
+        serviceAccountName: wasmbed-gateway
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: certificates
+          secret:
+            defaultMode: 420
+            secretName: gateway-certificates
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "11"
+    creationTimestamp: "2026-08-20T13:07:27Z"
+    generation: 2
+    labels:
+      app: wasmbed-gateway
+      gateway: gateway-1
+      pod-template-hash: c9786c4cd
+    name: gateway-1-deployment-c9786c4cd
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: gateway-1-deployment
+      uid: 0d992b87-17fb-446e-9d1f-73aeb28b6670
+    resourceVersion: "68340797"
+    uid: bc3ad70b-e147-472c-a3d8-64600bbddd66
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-gateway
+        gateway: gateway-1
+        pod-template-hash: c9786c4cd
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T13:39:37Z"
+        labels:
+          app: wasmbed-gateway
+          gateway: gateway-1
+          pod-template-hash: c9786c4cd
+      spec:
+        containers:
+        - command:
+          - /usr/local/bin/wasmbed-gateway
+          - --bind-addr
+          - 0.0.0.0:8443
+          - --http-addr
+          - 0.0.0.0:8080
+          - --private-key
+          - /certs/server-key.pem
+          - --certificate
+          - /certs/server-cert.pem
+          - --client-ca
+          - /certs/ca-cert.pem
+          - --namespace
+          - wasmbed
+          - --pod-namespace
+          - wasmbed
+          - --pod-name
+          - gateway-1
+          env:
+          - name: GATEWAY_NAME
+            value: gateway-1
+          - name: GATEWAY_ENDPOINT
+            value: wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/gateway:mtls1
+          imagePullPolicy: Never
+          name: gateway
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /certs
+            name: certificates
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway
+        serviceAccountName: wasmbed-gateway
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: certificates
+          secret:
+            defaultMode: 420
+            secretName: gateway-certificates
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "5"
+    creationTimestamp: "2026-06-09T06:40:29Z"
+    generation: 2
+    labels:
+      app: wasmbed-api-server
+      pod-template-hash: 5bbd98b6b8
+    name: wasmbed-api-server-5bbd98b6b8
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-api-server
+      uid: 5271893a-8c5c-4cb9-8d46-60843e62e2fd
+    resourceVersion: "64674823"
+    uid: 7eec45e8-bd42-453a-b083-f67f8cad0b05
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-api-server
+        pod-template-hash: 5bbd98b6b8
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-05-16T07:27:07Z"
+        labels:
+          app: wasmbed-api-server
+          pod-template-hash: 5bbd98b6b8
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_PORT
+            value: "3001"
+          - name: WASMBED_API_SERVER_GATEWAY_ENDPOINT
+            value: http://gateway-1-service.wasmbed.svc.cluster.local:8080
+          - name: RENODE_GATEWAY_HOST
+            value: 192.168.1.1
+          - name: RENODE_GATEWAY_PORT
+            value: "30443"
+          - name: WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT
+            value: http://172.18.0.1:30460
+          - name: RENODE_USE_DOCKER
+            value: "true"
+          - name: ZEPHYR_WORKSPACE
+            value: /home/ubuntu/retrospect/zephyr-workspace
+          image: localhost:5000/wasmbed/api-server:latest
+          imagePullPolicy: IfNotPresent
+          name: api-server
+          ports:
+          - containerPort: 3001
+            name: http
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+            name: zephyr-workspace
+            readOnly: true
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            name: renode-scripts
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 988
+          supplementalGroups:
+          - 988
+        serviceAccount: wasmbed-api-server
+        serviceAccountName: wasmbed-api-server
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+          name: docker-sock
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace
+            type: Directory
+          name: zephyr-workspace
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            type: DirectoryOrCreate
+          name: renode-scripts
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "8"
+    creationTimestamp: "2026-08-19T13:08:29Z"
+    generation: 2
+    labels:
+      app: wasmbed-api-server
+      pod-template-hash: 5cb748cc6d
+    name: wasmbed-api-server-5cb748cc6d
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-api-server
+      uid: 5271893a-8c5c-4cb9-8d46-60843e62e2fd
+    resourceVersion: "64678230"
+    uid: a6ef2145-dfc9-4ba4-8306-6abdea7ac421
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-api-server
+        pod-template-hash: 5cb748cc6d
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T13:08:29Z"
+        labels:
+          app: wasmbed-api-server
+          pod-template-hash: 5cb748cc6d
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_PORT
+            value: "3001"
+          - name: WASMBED_API_SERVER_GATEWAY_ENDPOINT
+            value: http://gateway-1-service.wasmbed.svc.cluster.local:8080
+          - name: RENODE_GATEWAY_HOST
+            value: 192.168.1.1
+          - name: RENODE_GATEWAY_PORT
+            value: "30443"
+          - name: WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT
+            value: http://172.18.0.1:30460
+          - name: RENODE_USE_DOCKER
+            value: "true"
+          - name: ZEPHYR_WORKSPACE
+            value: /home/ubuntu/retrospect/zephyr-workspace
+          image: localhost:5000/wasmbed/api-server:latest
+          imagePullPolicy: IfNotPresent
+          name: api-server
+          ports:
+          - containerPort: 3001
+            name: http
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+            name: zephyr-workspace
+            readOnly: true
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            name: renode-scripts
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 988
+          supplementalGroups:
+          - 988
+        serviceAccount: wasmbed-api-server
+        serviceAccountName: wasmbed-api-server
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+          name: docker-sock
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace
+            type: Directory
+          name: zephyr-workspace
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            type: DirectoryOrCreate
+          name: renode-scripts
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "14"
+    creationTimestamp: "2026-08-20T16:25:58Z"
+    generation: 2
+    labels:
+      app: wasmbed-api-server
+      pod-template-hash: 5dc9487777
+    name: wasmbed-api-server-5dc9487777
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-api-server
+      uid: 5271893a-8c5c-4cb9-8d46-60843e62e2fd
+    resourceVersion: "72496158"
+    uid: 847061f0-473f-47d8-bb86-2bc8c5d3f2ff
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-api-server
+        pod-template-hash: 5dc9487777
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-20T16:25:58Z"
+        labels:
+          app: wasmbed-api-server
+          pod-template-hash: 5dc9487777
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_PORT
+            value: "3001"
+          - name: WASMBED_API_SERVER_GATEWAY_ENDPOINT
+            value: http://gateway-1-service.wasmbed.svc.cluster.local:8080
+          - name: RENODE_GATEWAY_HOST
+            value: 192.168.1.1
+          - name: RENODE_GATEWAY_PORT
+            value: "30443"
+          - name: WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT
+            value: http://172.18.0.1:30460
+          - name: RENODE_USE_DOCKER
+            value: "true"
+          - name: ZEPHYR_WORKSPACE
+            value: /home/ubuntu/retrospect/zephyr-workspace
+          - name: WASMBED_DEVICE_IDENTITY_DIR
+            value: /home/ubuntu/retrospect/zephyr-workspace/device-identities
+          image: localhost:5000/wasmbed/api-server:mtls3
+          imagePullPolicy: IfNotPresent
+          name: api-server
+          ports:
+          - containerPort: 3001
+            name: http
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+            name: zephyr-workspace
+            readOnly: true
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            name: renode-scripts
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 988
+          supplementalGroups:
+          - 988
+        serviceAccount: wasmbed-api-server
+        serviceAccountName: wasmbed-api-server
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+          name: docker-sock
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace
+            type: Directory
+          name: zephyr-workspace
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            type: DirectoryOrCreate
+          name: renode-scripts
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "9"
+    creationTimestamp: "2026-08-19T13:18:43Z"
+    generation: 2
+    labels:
+      app: wasmbed-api-server
+      pod-template-hash: 5fb6879b5
+    name: wasmbed-api-server-5fb6879b5
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-api-server
+      uid: 5271893a-8c5c-4cb9-8d46-60843e62e2fd
+    resourceVersion: "64678605"
+    uid: 1bd9f6c2-5f97-404b-ba18-0a97a41ed264
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-api-server
+        pod-template-hash: 5fb6879b5
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T13:18:43Z"
+        labels:
+          app: wasmbed-api-server
+          pod-template-hash: 5fb6879b5
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_PORT
+            value: "3001"
+          - name: WASMBED_API_SERVER_GATEWAY_ENDPOINT
+            value: http://gateway-1-service.wasmbed.svc.cluster.local:8080
+          - name: RENODE_GATEWAY_HOST
+            value: 192.168.1.1
+          - name: RENODE_GATEWAY_PORT
+            value: "30443"
+          - name: WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT
+            value: http://172.18.0.1:30460
+          - name: RENODE_USE_DOCKER
+            value: "true"
+          - name: ZEPHYR_WORKSPACE
+            value: /home/ubuntu/retrospect/zephyr-workspace
+          image: localhost:5000/wasmbed/api-server:latest
+          imagePullPolicy: IfNotPresent
+          name: api-server
+          ports:
+          - containerPort: 3001
+            name: http
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+            name: zephyr-workspace
+            readOnly: true
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            name: renode-scripts
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 988
+          supplementalGroups:
+          - 988
+        serviceAccount: wasmbed-api-server
+        serviceAccountName: wasmbed-api-server
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+          name: docker-sock
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace
+            type: Directory
+          name: zephyr-workspace
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            type: DirectoryOrCreate
+          name: renode-scripts
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "12"
+    creationTimestamp: "2026-08-20T13:07:36Z"
+    generation: 3
+    labels:
+      app: wasmbed-api-server
+      pod-template-hash: 65f686d998
+    name: wasmbed-api-server-65f686d998
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-api-server
+      uid: 5271893a-8c5c-4cb9-8d46-60843e62e2fd
+    resourceVersion: "68429209"
+    uid: af8ecfa1-fd05-4b34-9ce7-1fa511efb9d9
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-api-server
+        pod-template-hash: 65f686d998
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T13:27:07Z"
+        labels:
+          app: wasmbed-api-server
+          pod-template-hash: 65f686d998
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_PORT
+            value: "3001"
+          - name: WASMBED_API_SERVER_GATEWAY_ENDPOINT
+            value: http://gateway-1-service.wasmbed.svc.cluster.local:8080
+          - name: RENODE_GATEWAY_HOST
+            value: 192.168.1.1
+          - name: RENODE_GATEWAY_PORT
+            value: "30443"
+          - name: WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT
+            value: http://172.18.0.1:30460
+          - name: RENODE_USE_DOCKER
+            value: "true"
+          - name: ZEPHYR_WORKSPACE
+            value: /home/ubuntu/retrospect/zephyr-workspace
+          - name: WASMBED_DEVICE_IDENTITY_DIR
+            value: /home/ubuntu/retrospect/zephyr-workspace/device-identities
+          image: localhost:5000/wasmbed/api-server:mtls1
+          imagePullPolicy: IfNotPresent
+          name: api-server
+          ports:
+          - containerPort: 3001
+            name: http
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+            name: zephyr-workspace
+            readOnly: true
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            name: renode-scripts
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 988
+          supplementalGroups:
+          - 988
+        serviceAccount: wasmbed-api-server
+        serviceAccountName: wasmbed-api-server
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+          name: docker-sock
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace
+            type: Directory
+          name: zephyr-workspace
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            type: DirectoryOrCreate
+          name: renode-scripts
+  status:
+    observedGeneration: 3
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "10"
+    creationTimestamp: "2026-08-19T13:27:07Z"
+    generation: 2
+    labels:
+      app: wasmbed-api-server
+      pod-template-hash: 76b98c69f9
+    name: wasmbed-api-server-76b98c69f9
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-api-server
+      uid: 5271893a-8c5c-4cb9-8d46-60843e62e2fd
+    resourceVersion: "68333589"
+    uid: c9c388de-bbb2-4fe3-abb1-35d8a435ba83
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-api-server
+        pod-template-hash: 76b98c69f9
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T13:27:07Z"
+        labels:
+          app: wasmbed-api-server
+          pod-template-hash: 76b98c69f9
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_PORT
+            value: "3001"
+          - name: WASMBED_API_SERVER_GATEWAY_ENDPOINT
+            value: http://gateway-1-service.wasmbed.svc.cluster.local:8080
+          - name: RENODE_GATEWAY_HOST
+            value: 192.168.1.1
+          - name: RENODE_GATEWAY_PORT
+            value: "30443"
+          - name: WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT
+            value: http://172.18.0.1:30460
+          - name: RENODE_USE_DOCKER
+            value: "true"
+          - name: ZEPHYR_WORKSPACE
+            value: /home/ubuntu/retrospect/zephyr-workspace
+          image: localhost:5000/wasmbed/api-server:latest
+          imagePullPolicy: IfNotPresent
+          name: api-server
+          ports:
+          - containerPort: 3001
+            name: http
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+            name: zephyr-workspace
+            readOnly: true
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            name: renode-scripts
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 988
+          supplementalGroups:
+          - 988
+        serviceAccount: wasmbed-api-server
+        serviceAccountName: wasmbed-api-server
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+          name: docker-sock
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace
+            type: Directory
+          name: zephyr-workspace
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            type: DirectoryOrCreate
+          name: renode-scripts
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "11"
+    creationTimestamp: "2026-08-20T13:07:36Z"
+    generation: 2
+    labels:
+      app: wasmbed-api-server
+      pod-template-hash: 77755c8f9
+    name: wasmbed-api-server-77755c8f9
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-api-server
+      uid: 5271893a-8c5c-4cb9-8d46-60843e62e2fd
+    resourceVersion: "68333509"
+    uid: 1508f833-8e98-40c6-8042-7b54fd60355a
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-api-server
+        pod-template-hash: 77755c8f9
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T13:27:07Z"
+        labels:
+          app: wasmbed-api-server
+          pod-template-hash: 77755c8f9
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_PORT
+            value: "3001"
+          - name: WASMBED_API_SERVER_GATEWAY_ENDPOINT
+            value: http://gateway-1-service.wasmbed.svc.cluster.local:8080
+          - name: RENODE_GATEWAY_HOST
+            value: 192.168.1.1
+          - name: RENODE_GATEWAY_PORT
+            value: "30443"
+          - name: WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT
+            value: http://172.18.0.1:30460
+          - name: RENODE_USE_DOCKER
+            value: "true"
+          - name: ZEPHYR_WORKSPACE
+            value: /home/ubuntu/retrospect/zephyr-workspace
+          image: localhost:5000/wasmbed/api-server:mtls1
+          imagePullPolicy: IfNotPresent
+          name: api-server
+          ports:
+          - containerPort: 3001
+            name: http
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+            name: zephyr-workspace
+            readOnly: true
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            name: renode-scripts
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 988
+          supplementalGroups:
+          - 988
+        serviceAccount: wasmbed-api-server
+        serviceAccountName: wasmbed-api-server
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+          name: docker-sock
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace
+            type: Directory
+          name: zephyr-workspace
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            type: DirectoryOrCreate
+          name: renode-scripts
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "13"
+    creationTimestamp: "2026-08-20T13:44:47Z"
+    generation: 2
+    labels:
+      app: wasmbed-api-server
+      pod-template-hash: 78b9c4675b
+    name: wasmbed-api-server-78b9c4675b
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-api-server
+      uid: 5271893a-8c5c-4cb9-8d46-60843e62e2fd
+    resourceVersion: "68737145"
+    uid: 8657bf78-410a-4308-8b10-73c0f26eacf4
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-api-server
+        pod-template-hash: 78b9c4675b
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T13:27:07Z"
+        labels:
+          app: wasmbed-api-server
+          pod-template-hash: 78b9c4675b
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_PORT
+            value: "3001"
+          - name: WASMBED_API_SERVER_GATEWAY_ENDPOINT
+            value: http://gateway-1-service.wasmbed.svc.cluster.local:8080
+          - name: RENODE_GATEWAY_HOST
+            value: 192.168.1.1
+          - name: RENODE_GATEWAY_PORT
+            value: "30443"
+          - name: WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT
+            value: http://172.18.0.1:30460
+          - name: RENODE_USE_DOCKER
+            value: "true"
+          - name: ZEPHYR_WORKSPACE
+            value: /home/ubuntu/retrospect/zephyr-workspace
+          - name: WASMBED_DEVICE_IDENTITY_DIR
+            value: /home/ubuntu/retrospect/zephyr-workspace/device-identities
+          image: localhost:5000/wasmbed/api-server:mtls3
+          imagePullPolicy: IfNotPresent
+          name: api-server
+          ports:
+          - containerPort: 3001
+            name: http
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+            name: zephyr-workspace
+            readOnly: true
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            name: renode-scripts
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 988
+          supplementalGroups:
+          - 988
+        serviceAccount: wasmbed-api-server
+        serviceAccountName: wasmbed-api-server
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+          name: docker-sock
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace
+            type: Directory
+          name: zephyr-workspace
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            type: DirectoryOrCreate
+          name: renode-scripts
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "6"
+    creationTimestamp: "2026-08-19T11:09:01Z"
+    generation: 2
+    labels:
+      app: wasmbed-api-server
+      pod-template-hash: 79c4f6bf87
+    name: wasmbed-api-server-79c4f6bf87
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-api-server
+      uid: 5271893a-8c5c-4cb9-8d46-60843e62e2fd
+    resourceVersion: "64677018"
+    uid: ef703445-433f-4229-895d-e71b738fa1db
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-api-server
+        pod-template-hash: 79c4f6bf87
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T11:09:01Z"
+        labels:
+          app: wasmbed-api-server
+          pod-template-hash: 79c4f6bf87
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_PORT
+            value: "3001"
+          - name: WASMBED_API_SERVER_GATEWAY_ENDPOINT
+            value: http://gateway-1-service.wasmbed.svc.cluster.local:8080
+          - name: RENODE_GATEWAY_HOST
+            value: 192.168.1.1
+          - name: RENODE_GATEWAY_PORT
+            value: "30443"
+          - name: WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT
+            value: http://172.18.0.1:30460
+          - name: RENODE_USE_DOCKER
+            value: "true"
+          - name: ZEPHYR_WORKSPACE
+            value: /home/ubuntu/retrospect/zephyr-workspace
+          image: localhost:5000/wasmbed/api-server:latest
+          imagePullPolicy: IfNotPresent
+          name: api-server
+          ports:
+          - containerPort: 3001
+            name: http
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+            name: zephyr-workspace
+            readOnly: true
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            name: renode-scripts
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 988
+          supplementalGroups:
+          - 988
+        serviceAccount: wasmbed-api-server
+        serviceAccountName: wasmbed-api-server
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+          name: docker-sock
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace
+            type: Directory
+          name: zephyr-workspace
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            type: DirectoryOrCreate
+          name: renode-scripts
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "7"
+    creationTimestamp: "2026-08-19T12:28:23Z"
+    generation: 2
+    labels:
+      app: wasmbed-api-server
+      pod-template-hash: f95bb96d
+    name: wasmbed-api-server-f95bb96d
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-api-server
+      uid: 5271893a-8c5c-4cb9-8d46-60843e62e2fd
+    resourceVersion: "64677882"
+    uid: 6e4b6b14-ed2f-48ed-89ab-26d882a9f19e
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-api-server
+        pod-template-hash: f95bb96d
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T12:28:22Z"
+        labels:
+          app: wasmbed-api-server
+          pod-template-hash: f95bb96d
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_PORT
+            value: "3001"
+          - name: WASMBED_API_SERVER_GATEWAY_ENDPOINT
+            value: http://gateway-1-service.wasmbed.svc.cluster.local:8080
+          - name: RENODE_GATEWAY_HOST
+            value: 192.168.1.1
+          - name: RENODE_GATEWAY_PORT
+            value: "30443"
+          - name: WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT
+            value: http://172.18.0.1:30460
+          - name: RENODE_USE_DOCKER
+            value: "true"
+          - name: ZEPHYR_WORKSPACE
+            value: /home/ubuntu/retrospect/zephyr-workspace
+          image: localhost:5000/wasmbed/api-server:latest
+          imagePullPolicy: IfNotPresent
+          name: api-server
+          ports:
+          - containerPort: 3001
+            name: http
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+            name: zephyr-workspace
+            readOnly: true
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            name: renode-scripts
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 988
+          supplementalGroups:
+          - 988
+        serviceAccount: wasmbed-api-server
+        serviceAccountName: wasmbed-api-server
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+          name: docker-sock
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace
+            type: Directory
+          name: zephyr-workspace
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            type: DirectoryOrCreate
+          name: renode-scripts
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "15"
+    creationTimestamp: "2026-08-21T08:28:39Z"
+    generation: 1
+    labels:
+      app: wasmbed-api-server
+      pod-template-hash: fcff6c7b5
+    name: wasmbed-api-server-fcff6c7b5
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-api-server
+      uid: 5271893a-8c5c-4cb9-8d46-60843e62e2fd
+    resourceVersion: "72494668"
+    uid: 8b325035-412a-454f-b949-47efb1622f11
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: wasmbed-api-server
+        pod-template-hash: fcff6c7b5
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-20T16:25:58Z"
+        labels:
+          app: wasmbed-api-server
+          pod-template-hash: fcff6c7b5
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_PORT
+            value: "3001"
+          - name: WASMBED_API_SERVER_GATEWAY_ENDPOINT
+            value: http://gateway-1-service.wasmbed.svc.cluster.local:8080
+          - name: RENODE_GATEWAY_HOST
+            value: 192.168.1.1
+          - name: RENODE_GATEWAY_PORT
+            value: "30443"
+          - name: WASMBED_API_SERVER_INFRASTRUCTURE_ENDPOINT
+            value: http://172.18.0.1:30460
+          - name: RENODE_USE_DOCKER
+            value: "true"
+          - name: ZEPHYR_WORKSPACE
+            value: /home/ubuntu/retrospect/zephyr-workspace
+          - name: WASMBED_DEVICE_IDENTITY_DIR
+            value: /home/ubuntu/retrospect/zephyr-workspace/device-identities
+          image: localhost:5000/wasmbed/api-server:v1.0
+          imagePullPolicy: IfNotPresent
+          name: api-server
+          ports:
+          - containerPort: 3001
+            name: http
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace
+            name: zephyr-workspace
+            readOnly: true
+          - mountPath: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            name: renode-scripts
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 988
+          supplementalGroups:
+          - 988
+        serviceAccount: wasmbed-api-server
+        serviceAccountName: wasmbed-api-server
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+          name: docker-sock
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace
+            type: Directory
+          name: zephyr-workspace
+        - hostPath:
+            path: /home/ubuntu/retrospect/zephyr-workspace/renode-scripts
+            type: DirectoryOrCreate
+          name: renode-scripts
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "2"
+    creationTimestamp: "2026-05-15T22:25:38Z"
+    generation: 4
+    labels:
+      app: wasmbed-application-controller
+      pod-template-hash: 5497cbb64
+    name: wasmbed-application-controller-5497cbb64
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-application-controller
+      uid: 347cdcd7-3c44-4bf6-a2b5-0d692b5cb0c1
+    resourceVersion: "387698"
+    uid: 2d1b4cc3-df3e-4e89-a997-fca41f744961
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-application-controller
+        pod-template-hash: 5497cbb64
+    template:
+      metadata:
+        labels:
+          app: wasmbed-application-controller
+          pod-template-hash: 5497cbb64
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: GATEWAY_ENDPOINT
+            value: http://wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/application-controller:fixdeploy1
+          imagePullPolicy: IfNotPresent
+          name: application-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-application-controller
+        serviceAccountName: wasmbed-application-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "0"
+      deployment.kubernetes.io/max-replicas: "0"
+      deployment.kubernetes.io/revision: "6"
+    creationTimestamp: "2026-05-16T10:19:44Z"
+    generation: 2
+    labels:
+      app: wasmbed-application-controller
+      pod-template-hash: 57c588f6d4
+    name: wasmbed-application-controller-57c588f6d4
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-application-controller
+      uid: 347cdcd7-3c44-4bf6-a2b5-0d692b5cb0c1
+    resourceVersion: "396335"
+    uid: 37dd4993-fb34-4d30-9006-b43bb82ba57b
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-application-controller
+        pod-template-hash: 57c588f6d4
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-05-16T10:16:22Z"
+        labels:
+          app: wasmbed-application-controller
+          pod-template-hash: 57c588f6d4
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: GATEWAY_ENDPOINT
+            value: http://wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/application-controller:fixdeploy2
+          imagePullPolicy: IfNotPresent
+          name: application-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-application-controller
+        serviceAccountName: wasmbed-application-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "5"
+    creationTimestamp: "2026-05-16T10:16:22Z"
+    generation: 2
+    labels:
+      app: wasmbed-application-controller
+      pod-template-hash: 5c6dbb6bff
+    name: wasmbed-application-controller-5c6dbb6bff
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-application-controller
+      uid: 347cdcd7-3c44-4bf6-a2b5-0d692b5cb0c1
+    resourceVersion: "388642"
+    uid: 560d491a-d597-4af1-b8f4-68d47e469055
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-application-controller
+        pod-template-hash: 5c6dbb6bff
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-05-16T10:16:22Z"
+        labels:
+          app: wasmbed-application-controller
+          pod-template-hash: 5c6dbb6bff
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: GATEWAY_ENDPOINT
+            value: http://wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/application-controller:fixdeploy1
+          imagePullPolicy: IfNotPresent
+          name: application-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-application-controller
+        serviceAccountName: wasmbed-application-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "7"
+    creationTimestamp: "2026-05-16T11:34:51Z"
+    generation: 3
+    labels:
+      app: wasmbed-application-controller
+      pod-template-hash: 5fb5d96b9c
+    name: wasmbed-application-controller-5fb5d96b9c
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-application-controller
+      uid: 347cdcd7-3c44-4bf6-a2b5-0d692b5cb0c1
+    resourceVersion: "399516"
+    uid: 334ca80e-f0a1-462d-90e5-4b1d08ae9c61
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-application-controller
+        pod-template-hash: 5fb5d96b9c
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-05-16T10:16:22Z"
+        labels:
+          app: wasmbed-application-controller
+          pod-template-hash: 5fb5d96b9c
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: GATEWAY_ENDPOINT
+            value: http://wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/application-controller:fixdeploy3
+          imagePullPolicy: IfNotPresent
+          name: application-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-application-controller
+        serviceAccountName: wasmbed-application-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 3
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "3"
+    creationTimestamp: "2026-05-16T10:11:44Z"
+    generation: 2
+    labels:
+      app: wasmbed-application-controller
+      pod-template-hash: 64bddb65cd
+    name: wasmbed-application-controller-64bddb65cd
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-application-controller
+      uid: 347cdcd7-3c44-4bf6-a2b5-0d692b5cb0c1
+    resourceVersion: "388027"
+    uid: 7127beed-7c94-4f74-9dee-fe673b49a516
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-application-controller
+        pod-template-hash: 64bddb65cd
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-05-16T10:11:44Z"
+        labels:
+          app: wasmbed-application-controller
+          pod-template-hash: 64bddb65cd
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: GATEWAY_ENDPOINT
+            value: http://wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/application-controller:fixdeploy1
+          imagePullPolicy: IfNotPresent
+          name: application-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-application-controller
+        serviceAccountName: wasmbed-application-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "4"
+    creationTimestamp: "2026-05-16T10:14:31Z"
+    generation: 2
+    labels:
+      app: wasmbed-application-controller
+      pod-template-hash: 67849fb46f
+    name: wasmbed-application-controller-67849fb46f
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-application-controller
+      uid: 347cdcd7-3c44-4bf6-a2b5-0d692b5cb0c1
+    resourceVersion: "388259"
+    uid: 2cd64383-fd45-4792-a6c2-a104c812b551
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-application-controller
+        pod-template-hash: 67849fb46f
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-05-16T10:14:31Z"
+        labels:
+          app: wasmbed-application-controller
+          pod-template-hash: 67849fb46f
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: GATEWAY_ENDPOINT
+            value: http://wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/application-controller:fixdeploy1
+          imagePullPolicy: IfNotPresent
+          name: application-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-application-controller
+        serviceAccountName: wasmbed-application-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2026-05-15T16:27:33Z"
+    generation: 2
+    labels:
+      app: wasmbed-application-controller
+      pod-template-hash: 6958f65784
+    name: wasmbed-application-controller-6958f65784
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-application-controller
+      uid: 347cdcd7-3c44-4bf6-a2b5-0d692b5cb0c1
+    resourceVersion: "113846"
+    uid: 1ec203fe-513b-49fc-8256-b1101d3435f0
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-application-controller
+        pod-template-hash: 6958f65784
+    template:
+      metadata:
+        labels:
+          app: wasmbed-application-controller
+          pod-template-hash: 6958f65784
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: GATEWAY_ENDPOINT
+            value: http://wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/application-controller:latest
+          imagePullPolicy: IfNotPresent
+          name: application-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-application-controller
+        serviceAccountName: wasmbed-application-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "8"
+    creationTimestamp: "2026-05-16T13:02:43Z"
+    generation: 6
+    labels:
+      app: wasmbed-application-controller
+      pod-template-hash: 6f94bcd6bb
+    name: wasmbed-application-controller-6f94bcd6bb
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-application-controller
+      uid: 347cdcd7-3c44-4bf6-a2b5-0d692b5cb0c1
+    resourceVersion: "64679522"
+    uid: bb7b1797-048c-40d3-b8eb-420778879ea1
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-application-controller
+        pod-template-hash: 6f94bcd6bb
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-05-16T10:16:22Z"
+        labels:
+          app: wasmbed-application-controller
+          pod-template-hash: 6f94bcd6bb
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: GATEWAY_ENDPOINT
+            value: http://wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/application-controller:fixstatus1
+          imagePullPolicy: IfNotPresent
+          name: application-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-application-controller
+        serviceAccountName: wasmbed-application-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 6
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "9"
+    creationTimestamp: "2026-08-19T13:43:56Z"
+    generation: 9
+    labels:
+      app: wasmbed-application-controller
+      pod-template-hash: c95d5d4c8
+    name: wasmbed-application-controller-c95d5d4c8
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-application-controller
+      uid: 347cdcd7-3c44-4bf6-a2b5-0d692b5cb0c1
+    resourceVersion: "72524829"
+    uid: f348cb83-efaf-45ae-9deb-e7adc6bbfbc4
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: wasmbed-application-controller
+        pod-template-hash: c95d5d4c8
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2026-08-19T13:43:56Z"
+        labels:
+          app: wasmbed-application-controller
+          pod-template-hash: c95d5d4c8
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: GATEWAY_ENDPOINT
+            value: http://wasmbed-gateway.wasmbed.svc.cluster.local:8080
+          image: localhost:5000/wasmbed/application-controller:fixstatus1
+          imagePullPolicy: IfNotPresent
+          name: application-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-application-controller
+        serviceAccountName: wasmbed-application-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 9
+    readyReplicas: 1
+    replicas: 1
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "0"
+      deployment.kubernetes.io/max-replicas: "0"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2026-05-15T16:27:33Z"
+    generation: 2
+    labels:
+      app: wasmbed-dashboard
+      pod-template-hash: 7c979dc7b8
+    name: wasmbed-dashboard-7c979dc7b8
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-dashboard
+      uid: 442dbd9b-0dde-424a-b88e-0b2944c0e074
+    resourceVersion: "385049"
+    uid: f7ad5c21-e96e-488d-a1e4-3c35aee4369d
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-dashboard
+        pod-template-hash: 7c979dc7b8
+    template:
+      metadata:
+        labels:
+          app: wasmbed-dashboard
+          pod-template-hash: 7c979dc7b8
+      spec:
+        containers:
+        - env:
+          - name: REACT_APP_API_BASE_URL
+            value: http://wasmbed-api-server.wasmbed.svc.cluster.local:3001
+          image: localhost:5000/wasmbed/dashboard:latest
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: dashboard
+          ports:
+          - containerPort: 3000
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "3"
+      deployment.kubernetes.io/revision-history: "1"
+    creationTimestamp: "2026-05-15T16:27:33Z"
+    generation: 4
+    labels:
+      app: wasmbed-device-controller
+      pod-template-hash: 564865b544
+    name: wasmbed-device-controller-564865b544
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-device-controller
+      uid: f0b982ad-0589-47d5-80e9-0f3692547c6c
+    resourceVersion: "12020"
+    uid: cb327172-2f40-4d47-ba76-7ff4b26581f5
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-device-controller
+        pod-template-hash: 564865b544
+    template:
+      metadata:
+        labels:
+          app: wasmbed-device-controller
+          pod-template-hash: 564865b544
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_URL
+            value: http://wasmbed-api-server.wasmbed.svc.cluster.local:3001
+          image: localhost:5000/wasmbed/device-controller:latest
+          imagePullPolicy: IfNotPresent
+          name: device-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-device-controller
+        serviceAccountName: wasmbed-device-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 4
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "2"
+    creationTimestamp: "2026-05-15T16:47:28Z"
+    generation: 2
+    labels:
+      app: wasmbed-device-controller
+      pod-template-hash: 6bdd85c
+    name: wasmbed-device-controller-6bdd85c
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-device-controller
+      uid: f0b982ad-0589-47d5-80e9-0f3692547c6c
+    resourceVersion: "11169"
+    uid: 1f9c25c0-1f54-4a64-a322-1a671f184dda
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-device-controller
+        pod-template-hash: 6bdd85c
+    template:
+      metadata:
+        labels:
+          app: wasmbed-device-controller
+          pod-template-hash: 6bdd85c
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_URL
+            value: http://wasmbed-api-server.wasmbed.svc.cluster.local:3001
+          image: localhost:5000/wasmbed/device-controller:fix1
+          imagePullPolicy: IfNotPresent
+          name: device-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-device-controller
+        serviceAccountName: wasmbed-device-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "0"
+      deployment.kubernetes.io/max-replicas: "0"
+      deployment.kubernetes.io/revision: "4"
+    creationTimestamp: "2026-05-15T17:23:42Z"
+    generation: 2
+    labels:
+      app: wasmbed-device-controller
+      pod-template-hash: 777675f476
+    name: wasmbed-device-controller-777675f476
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-device-controller
+      uid: f0b982ad-0589-47d5-80e9-0f3692547c6c
+    resourceVersion: "385045"
+    uid: dff23c1e-9239-4e0d-afdd-1be1fab277ff
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-device-controller
+        pod-template-hash: 777675f476
+    template:
+      metadata:
+        labels:
+          app: wasmbed-device-controller
+          pod-template-hash: 777675f476
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          - name: WASMBED_API_SERVER_URL
+            value: http://wasmbed-api-server.wasmbed.svc.cluster.local:3001
+          image: localhost:5000/wasmbed/device-controller:fix2
+          imagePullPolicy: IfNotPresent
+          name: device-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-device-controller
+        serviceAccountName: wasmbed-device-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "0"
+      deployment.kubernetes.io/max-replicas: "0"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2026-05-15T16:27:33Z"
+    generation: 2
+    labels:
+      app: wasmbed-gateway-controller
+      pod-template-hash: 65f7884677
+    name: wasmbed-gateway-controller-65f7884677
+    namespace: wasmbed
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: wasmbed-gateway-controller
+      uid: a7d44163-fa5c-4ae3-9241-d09af94518e1
+    resourceVersion: "385041"
+    uid: a4d1700e-2541-4909-885e-e41ac800ee28
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: wasmbed-gateway-controller
+        pod-template-hash: 65f7884677
+    template:
+      metadata:
+        labels:
+          app: wasmbed-gateway-controller
+          pod-template-hash: 65f7884677
+      spec:
+        containers:
+        - env:
+          - name: RUST_LOG
+            value: info
+          image: localhost:5000/wasmbed/gateway-controller:latest
+          imagePullPolicy: IfNotPresent
+          name: gateway-controller
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: wasmbed-gateway-controller
+        serviceAccountName: wasmbed-gateway-controller
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+    terminatingReplicas: 0
+- apiVersion: wasmbed.github.io/v0
+  kind: Device
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"wasmbed.github.io/v0","kind":"Device","metadata":{"annotations":{},"name":"fleet-device-1","namespace":"wasmbed"},"spec":{"mcuType":"Stm32F746gDisco","publicKey":"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE-Zs9A7Hm2nUNMfDuhReYlTzy4RTWVHHlxzH0IdMSQo-VCaiDKA2RwqE15KuFs54ZF_xHQXio48Z8i6zWafkdpg"}}
+    creationTimestamp: "2026-08-21T08:29:05Z"
+    generation: 1
+    name: fleet-device-1
+    namespace: wasmbed
+    resourceVersion: "72524760"
+    uid: e7715544-9f77-4548-82ee-51575de45b16
+  spec:
+    mcuType: Stm32F746gDisco
+    publicKey: MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE-Zs9A7Hm2nUNMfDuhReYlTzy4RTWVHHlxzH0IdMSQo-VCaiDKA2RwqE15KuFs54ZF_xHQXio48Z8i6zWafkdpg
+  status:
+    connected_since: "2026-08-21T08:30:13.745127212Z"
+    gateway:
+      endpoint: ""
+      name: gateway-1
+    last_heartbeat: "2026-08-21T08:45:43.786181571Z"
+    pairing_mode: false
+    phase: Connected
+- apiVersion: wasmbed.github.io/v0
+  kind: Device
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"wasmbed.github.io/v0","kind":"Device","metadata":{"annotations":{},"name":"native-sim-1","namespace":"wasmbed"},"spec":{"mcuType":"Stm32F746gDisco","preferredGateway":"gateway-1","publicKey":"q6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6s"}}
+    creationTimestamp: "2026-05-15T16:43:09Z"
+    generation: 2
+    name: native-sim-1
+    namespace: wasmbed
+    resourceVersion: "68769604"
+    uid: 072321b6-c322-441f-b6d1-07f67d311232
+  spec:
+    mcuType: Stm32F746gDisco
+    preferredGateway: gateway-1
+    publicKey: MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEEhpzP6ZFEkRbrLXyq8oz0ZMDh1kjoynnPXm75aMdSwm8MKWFEYeVUeU3Wc-DzH1N7E02VHsWQyYB2X63ZroMNQ
+  status:
+    last_heartbeat: "2026-08-20T16:32:32.310737783Z"
+    pairing_mode: true
+    phase: Disconnected
+- apiVersion: wasmbed.github.io/v0
+  kind: Device
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"wasmbed.github.io/v0","kind":"Device","metadata":{"annotations":{},"name":"probe-device-1","namespace":"wasmbed"},"spec":{"mcuType":"Stm32F746gDisco","publicKey":"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAExOAHooycE5mJclZBzCpRd51SKHLZUTiRpGBpNxx8f5DV3V950Eu72vETxTpU6JU01k-_cmwq6CR-oyA-Ed4UtA"}}
+    creationTimestamp: "2026-08-20T22:39:27Z"
+    generation: 2
+    name: probe-device-1
+    namespace: wasmbed
+    resourceVersion: "72513512"
+    uid: 2b195502-f3f3-430d-a3cf-4203df634e7e
+  spec:
+    mcuType: Stm32F746gDisco
+    publicKey: MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAExOAHooycE5mJclZBzCpRd51SKHLZUTiRpGBpNxx8f5DV3V950Eu72vETxTpU6JU01k-_cmwq6CR-oyA-Ed4UtA
+  status:
+    pairing_mode: false
+    phase: Disconnected
+- apiVersion: wasmbed.github.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"wasmbed.github.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"experiment-30-1787301978","namespace":"wasmbed"},"spec":{"description":"Benchmark application","name":"experiment-30-1787301978","targetDevices":{"deviceNames":["fleet-device-1"]},"wasmBytes":"AGFzbQEAAAABBAFgAAADAgEABwcBA3J1bgAACgQBAgAL"}}
+    creationTimestamp: "2026-08-21T08:46:19Z"
+    generation: 1
+    name: experiment-30-1787301978
+    namespace: wasmbed
+    resourceVersion: "72524929"
+    uid: 8b9f570a-d7f7-437b-b12c-ad12a4e547eb
+  spec:
+    description: Benchmark application
+    name: experiment-30-1787301978
+    targetDevices:
+      deviceNames:
+      - fleet-device-1
+    wasmBytes: AGFzbQEAAAABBAFgAAADAgEABwcBA3J1bgAACgQBAgAL
+  status:
+    lastUpdated: "2026-08-21T08:46:24.582168208+00:00"
+    phase: Running
+kind: List
+metadata:
+  resourceVersion: ""
